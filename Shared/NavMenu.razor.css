@@ -1,62 +1,65 @@
-.navbar-toggler {
-    background-color: rgba(255, 255, 255, 0.1);
+#navbar {
+    padding: 0;
+    width: auto;
+    height: auto;
 }
 
-.top-row {
-    height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
+#navbar>ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
 }
 
-.navbar-brand {
-    font-size: 1.1rem;
-}
-
-.oi {
-    width: 2rem;
-    font-size: 1.1rem;
-    vertical-align: text-top;
-    top: -2px;
-}
-
-.nav-item {
-    font-size: 0.9rem;
-    padding-bottom: 0.5rem;
-}
-
-    .nav-item:first-of-type {
-        padding-top: 1rem;
+@media (max-width: 750px) {
+    #navbar>ul {
+        flex-direction: row;
     }
-
-    .nav-item:last-of-type {
-        padding-bottom: 1rem;
-    }
-
-    .nav-item ::deep a {
-        color: #d7d7d7;
-        border-radius: 4px;
-        height: 3rem;
-        display: flex;
-        align-items: center;
-        line-height: 3rem;
-    }
-
-.nav-item ::deep a.active {
-    background-color: rgba(255,255,255,0.25);
-    color: white;
 }
 
-.nav-item ::deep a:hover {
-    background-color: rgba(255,255,255,0.1);
-    color: white;
+@media (min-width: 750px) {
+    #navbar>ul {
+        flex-direction: column;
+    }
 }
 
-@media (min-width: 641px) {
-    .navbar-toggler {
-        display: none;
-    }
+#navbar>ul li {
+    position: relative;
+    display: flex;
+}
 
-    .collapse {
-        /* Never collapse the sidebar for wide screens */
-        display: block;
-    }
+#navbar>ul li.active {
+    text-decoration: underline;
+}
+
+#navbar>ul span {
+    width: 100%;
+    margin: 0;
+    background: rgb(73, 73, 73);
+    height: 1px;
+}
+
+#navbar>ul li a {
+    padding: 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    color: inherit;
+    width: 100%;
+}
+
+#navbar>ul li a::after {
+    content: '';
+    width: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.3s ease;
+
+    background: linear-gradient(to right, transparent 0%, #1a1a1a 30%);
+}
+
+#navbar>ul li a:hover::after {
+    width: 100%;
+    height: 100%;
 }
