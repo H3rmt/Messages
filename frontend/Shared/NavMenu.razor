@@ -1,23 +1,16 @@
-﻿@inject NavigationManager MyNavigationManager
-
-<nav id="navbar">
-    <ul>
-        <li>
-            <NavLink href="/" Match="NavLinkMatch.All">
-                <div class="link">Home</div>
+﻿<nav class="p-0 w-auto h-auto">
+    <ul class="p-0 m-0 flex">
+        <li class="relative flex font-bold text-inherit">
+            <NavLink href="/" class="w-full h-full p-4" Match="NavLinkMatch.All">
+                <div>Home</div>
             </NavLink>
         </li>
-        <span />
-        <li class="active">
-            <NavLink href="/chat" class="">
-                <span class="">Chat</span>
+        <span class="divider"/>
+        <li class="relative flex font-bold text-inherit">
+            <NavLink href="/chat" class="w-full h-full p-4">
+                <span>Chat</span>
             </NavLink>
         </li>
-        <span />
+        <span class="divider"/>
     </ul>
-    @* <p>@(MyNavigationManager.ToBaseRelativePath(MyNavigationManager.Uri) == "Chat")</p> *@
 </nav>
-
-@code {
-
-}

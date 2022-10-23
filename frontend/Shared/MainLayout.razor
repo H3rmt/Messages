@@ -1,11 +1,11 @@
 ﻿@inherits LayoutComponentBase
 
-<div id="page">
-    <div id="sidebar">
+<div id="page" class="w-screen h-screen bg-slate-800 text-white">
+    <div id="sidebar" class="border-2 border-solid  border-black border-r-0">
         <NavMenu />
     </div>
 
-    <main id="main">
+    <main id="main" class="w-full flex p-5 border-2 border-solid border-black">
         @Body
     </main>
 </div>
