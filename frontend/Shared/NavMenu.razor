@@ -2,18 +2,22 @@
 
 <nav id="navbar">
     <ul>
-        <li class="">
-            <a href="">Home</a>
-        </li>
-        <span/>
         <li>
-            <a href="Chat">Chat</a>
+            <NavLink href="/" Match="NavLinkMatch.All">
+                <div class="link">Home</div>
+            </NavLink>
         </li>
-        <span/>
+        <span />
+        <li class="active">
+            <NavLink href="/chat" class="">
+                <span class="">Chat</span>
+            </NavLink>
+        </li>
+        <span />
     </ul>
     @* <p>@(MyNavigationManager.ToBaseRelativePath(MyNavigationManager.Uri) == "Chat")</p> *@
 </nav>
 
 @code {
-    
+
 }

@@ -1,10 +1,10 @@
-#navbar {
+nav {
     padding: 0;
     width: auto;
     height: auto;
 }
 
-#navbar>ul {
+ul {
     padding: 0;
     margin: 0;
     list-style: none;
@@ -12,42 +12,27 @@
 }
 
 @media (max-width: 750px) {
-    #navbar>ul {
+    ul {
         flex-direction: row;
     }
 }
 
 @media (min-width: 750px) {
-    #navbar>ul {
+    ul {
         flex-direction: column;
     }
 }
 
-#navbar>ul li {
+li {
     position: relative;
     display: flex;
-}
-
-#navbar>ul li.active {
-    text-decoration: underline;
-}
-
-#navbar>ul span {
-    width: 100%;
-    margin: 0;
-    background: rgb(73, 73, 73);
-    height: 1px;
-}
-
-#navbar>ul li a {
     padding: 1rem;
     text-decoration: none;
     font-weight: bold;
     color: inherit;
-    width: 100%;
 }
 
-#navbar>ul li a::after {
+li::after {
     content: '';
     width: 0;
     position: absolute;
@@ -59,7 +44,19 @@
     background: linear-gradient(to right, transparent 0%, #1a1a1a 30%);
 }
 
-#navbar>ul li a:hover::after {
+li:hover::after {
     width: 100%;
     height: 100%;
+}
+
+
+ul>span {
+    width: 100%;
+    margin: 0;
+    background: rgb(73, 73, 73);
+    height: 1px;
+}
+
+.link {
+    width: 100%;
 }

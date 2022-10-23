@@ -43,7 +43,6 @@
 
     #sidebar {
         width: 10rem;
-        height: 100vh;
         position: sticky;
         top: 0;
     }
