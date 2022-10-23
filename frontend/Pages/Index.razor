@@ -4,13 +4,14 @@
 
 <div id="main" class="grid w-full h-full gap-3">
     <div id="title" class="">
-        <h1 class="text-4xl font-bold">Chat App</h1>
+        <h1 class="text-4xl font-bold">@name</h1>
     </div>
-    <div id="account" class="flex items-center">
-        <input class="border-2 border-black bg-transparent focus:outline-none rounded-lg w-full py-2 px-3 "
-            id="username" type="text" placeholder="Username">
+    <div id="account" class="flex items-center gap-3">
+        <input class="border-2 border-black bg-transparent rounded-lg w-full py-2 px-3" id="username" type="text"
+            placeholder="Username">
+        <button class="border-2 border-black bg-transparent rounded-lg py-1 px-2 bg-green-800">Join</button>
     </div>
-    <div id="users" class="flex gap-2 border-black border-2 rounded-xl p-1 overflow-auto">
+    <div id="users" class="flex gap-2 border-black border-2 rounded-xl p-2 overflow-auto">
         @foreach (var item in users)
         {
             <div class="border-2 rounded-xl border-black bg-transparent p-2">
@@ -18,13 +19,21 @@
             </div>
         }
     </div>
-    <div id="spacing" class="bg-red-400">
+    <div id="chat" class="border-black border-2 rounded-xl p-2">
 
     </div>
-
+    <div id="input" class="border-black border-2 rounded-xl p-2 flex items-center gap-3">
+        <div class="grow-wrap overflow-auto border-2 border-black rounded-lg w-full p-2 max-h-60">
+            <textarea class="bg-transparent" rows="1" wrap="hard" id="send"
+                onInput="this.parentNode.dataset.replicatedValue = this.value"></textarea>
+        </div>
+        <button class="border-2 border-black bg-transparent rounded-lg py-1 px-3">Send</button>
+    </div>
 </div>
 
 @code {
     private string[] users = { "uwu", "bernt", "fef", "uwu", "bernt", "fef", "uwu", "bernt", "fef", "grr", "uwu", "bernt",
 "fef" };
+
+    private string name = "test Chat";
 }
