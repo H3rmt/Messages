@@ -3,7 +3,7 @@
 <PageTitle>Index</PageTitle>
 
 <div id="main" class="grid w-full h-full gap-3">
-    <div id="title" class="">
+    <div id="title" class="pl-2">
         <h1 class="text-4xl font-bold">@name</h1>
     </div>
     <div id="account" class="flex items-center gap-3">
@@ -19,8 +19,17 @@
             </div>
         }
     </div>
-    <div id="chat" class="border-black border-2 rounded-xl p-2">
-
+    <div id="chat" class="border-black border-2 rounded-xl p-2 flex-col overflow-auto gap-3 flex">
+        @foreach (var message in messages)
+        {
+            <div class="border-2 rounded-xl border-black bg-transparent p-2 break-words">
+                <div class="text-xs">
+                    @message.from
+                    @message.time
+                </div>
+                @message.message
+            </div>
+        }
     </div>
     <div id="input" class="border-black border-2 rounded-xl p-2 flex items-center gap-3">
         <div class="grow-wrap overflow-auto border-2 border-black rounded-lg w-full p-2 max-h-60">
@@ -35,5 +44,14 @@
     private string[] users = { "uwu", "bernt", "fef", "uwu", "bernt", "fef", "uwu", "bernt", "fef", "grr", "uwu", "bernt",
 "fef" };
 
+    public readonly record struct Message(string from, string message, string time);
+
+    private Message[] messages = { new Message("ME", "text message mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm mmmmmmmmmmmmmmmmmmmmmmmmmmmmmfffffffff", "12.4.2022"),
+    new Message("Bernt", "text fffffffffffffffffffff", "13.4.2022"), new Message("Bernt", "text fffffffffffffffffffff", "13.4.2022"), 
+    new Message("Bernt", "text fffffffffffffffffffff", "13.4.2022"), new Message("Bernt", "text fffffffffffffffffffff", "13.4.2022"),
+    new Message("Bernt", "text fffffffffffffffffffff", "13.4.2022") };
+
     private string name = "test Chat";
+
+
 }
