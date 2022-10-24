@@ -1,9 +1,63 @@
 @page "/chat"
+@inject BlazorApp.Data.MessageLoader MessageLoader
 
 <PageTitle>Chat</PageTitle>
 
+@if (loading)
+{
+    <h4>Loading...</h4>
+}
+else
+{
+    <div class="border-black border-2 rounded-xl p-2 overflow-auto gap-3 flex flex-col-reverse">
+        @foreach (var message in messages)
+        {
+            <div class="border-2 rounded-xl border-black bg-transparent p-2 break-words">
+                <div class="text-xs pb-1">
+                    @message.from
+                    @message.time
+                </div>
+                @message.message
+            </div>
+        }
+    </div>
+}
 
 
 @code {
+    protected override void OnInitialized()
+    {
+        Ticker();
+        base.OnInitialized();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        await Task.Delay(1_000);
+        messages = (await MessageLoader.getMessages()).ToList();
+        loading = false;
+    }
+
+    private List<Message> messages = new List<Message>();
+
+    private bool loading = true;
+
+    async void Ticker()
+    {
+        while (true)
+        {
+            if (loading)
+            {
+                await Task.Delay(500);
+                continue;
+            }
+            await Task.Delay(2000);
+            Console.WriteLine("added");
+            Message[] n = (await MessageLoader.getNewMessages());
+            messages.Insert(0, new Message("efef", "qwf", "qwf"));
+            StateHasChanged(); // refresh everything
+        }
+    }
 
 }

@@ -7,7 +7,7 @@
         <h1 class="text-4xl font-bold">@name</h1>
     </div>
     <div id="account" class="flex items-center gap-3">
-        <input class="border-2 border-black bg-transparent rounded-lg w-full py-2 px-3" id="username" type="text"
+        <input class="border-2 border-black bg-transparent rounded-lg w-full py-2 px-3 bg" id="username" type="text"
             placeholder="Username">
         <button class="border-2 border-black bg-transparent rounded-lg py-1 px-2 bg-green-800">Join</button>
     </div>
@@ -19,16 +19,23 @@
             </div>
         }
     </div>
-    <div id="chat" class="border-black border-2 rounded-xl p-2 flex-col overflow-auto gap-3 flex">
-        @foreach (var message in messages)
+    <div id="chat" class="border-black border-2 rounded-xl p-2 overflow-auto gap-3 flex flex-col-reverse">
+        @if (loading)
         {
-            <div class="border-2 rounded-xl border-black bg-transparent p-2 break-words">
-                <div class="text-xs">
-                    @message.from
-                    @message.time
+            <h4>Loading...</h4>
+        }
+        else
+        {
+            @foreach (var message in messages)
+            {
+                <div class="border-2 rounded-xl border-black bg-transparent p-2 break-words">
+                    <div class="text-xs pb-1">
+                        @message.from
+                        @message.time
+                    </div>
+                    @message.message
                 </div>
-                @message.message
-            </div>
+            }
         }
     </div>
     <div id="input" class="border-black border-2 rounded-xl p-2 flex items-center gap-3">
@@ -39,19 +46,3 @@
         <button class="border-2 border-black bg-transparent rounded-lg py-1 px-3">Send</button>
     </div>
 </div>
-
-@code {
-    private string[] users = { "uwu", "bernt", "fef", "uwu", "bernt", "fef", "uwu", "bernt", "fef", "grr", "uwu", "bernt",
-"fef" };
-
-    public readonly record struct Message(string from, string message, string time);
-
-    private Message[] messages = { new Message("ME", "text message mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm mmmmmmmmmmmmmmmmmmmmmmmmmmmmmfffffffff", "12.4.2022"),
-    new Message("Bernt", "text fffffffffffffffffffff", "13.4.2022"), new Message("Bernt", "text fffffffffffffffffffff", "13.4.2022"), 
-    new Message("Bernt", "text fffffffffffffffffffff", "13.4.2022"), new Message("Bernt", "text fffffffffffffffffffff", "13.4.2022"),
-    new Message("Bernt", "text fffffffffffffffffffff", "13.4.2022") };
-
-    private string name = "test Chat";
-
-
-}

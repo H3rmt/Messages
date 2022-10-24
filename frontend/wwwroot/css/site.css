@@ -88,3 +88,12 @@ a.active {
     outline: 2px solid transparent;
     outline-offset: 2px;
 }
+
+/* Remove chrome autofill color from inputs */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    color: white;
+    transition: background-color 5000000s ease-in-out 0s;
+}

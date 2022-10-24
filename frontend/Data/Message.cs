@@ -1,0 +1,1 @@
+public readonly record struct Message(string from, string message, string time);
