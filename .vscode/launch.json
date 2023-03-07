@@ -10,8 +10,8 @@
             "runtimeArgs": [
                 "run",
                 "--inspect-brk",
-                "--allow-net=127.0.0.1:8000",
-                "-A",
+                "--allow-net=127.0.0.1:8000,127.0.0.1:4000",
+                "--allow-env=APP_HOST,APP_PORT",
                 "index.ts"
             ],
             "attachSimplePort": 9229,

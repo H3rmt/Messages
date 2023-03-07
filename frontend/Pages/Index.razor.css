@@ -1,4 +1,4 @@
-#main {
+#index-main { 
     grid-template-columns: repeat(5, minmax(0, 1fr));
     grid-template-rows: max-content max-content auto max-content;
 }

@@ -1,5 +1,4 @@
 @page "/chat"
-@inject BlazorApp.Data.MessageLoader MessageLoader
 
 <PageTitle>Chat</PageTitle>
 
@@ -14,10 +13,10 @@ else
         {
             <div class="border-2 rounded-xl border-black bg-transparent p-2 break-words">
                 <div class="text-xs pb-1">
-                    @message.from
-                    @message.time
+                    @message.author
+                    @message.date
                 </div>
-                @message.message
+                @message.text
             </div>
         }
     </div>
@@ -35,7 +34,7 @@ else
     {
         loading = true;
         await Task.Delay(1_000);
-        messages = (await MessageLoader.getMessages()).ToList();
+        @* messages = (await MessageLoader.getMessages()).ToList(); *@
         loading = false;
     }
 
@@ -54,8 +53,8 @@ else
             }
             await Task.Delay(2000);
             Console.WriteLine("added");
-            Message[] n = (await MessageLoader.getNewMessages());
-            messages.Insert(0, new Message("efef", "qwf", "qwf"));
+            // Message[] n = (await MessageLoader.getNewMessages());
+            @* messages.Insert(0, new Message("m-efef", "a-qwf", "qwf", "today")); *@
             StateHasChanged(); // refresh everything
         }
     }

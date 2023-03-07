@@ -1,16 +1,19 @@
 type Message = {
-    id: number
+    id: string
     text: string
-    author: number
-    date: string
+    author: string
+    date: number
 }
 
+type CreateMessage = Omit<Message, "id">
+
 type Author = {
-    id: number
+    id: string
     name: string
 }
 
 export type {
     Message,
+    CreateMessage,
     Author
 }

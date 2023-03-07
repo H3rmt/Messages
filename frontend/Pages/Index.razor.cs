@@ -1,49 +1,95 @@
+using BlazorApp.Data;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazorApp.Pages;
 
-public partial class Index
+public partial class Index : ComponentBase
 {
     [Inject]
-    BlazorApp.Data.MessageLoader MessageLoader { get; set; }
+    BlazorApp.Services.MessageService MessageService { get; set; }
 
     private string[] users = { "uwu", "grr", "uwu", "bernt", "fef" };
 
-    private string name = "test Chat";
+    private string name = "Chat";
 
     private List<Message> messages = new List<Message>();
 
     private bool loading = true;
 
+    private string message = "";
+
+    private string username = "";
+
+    private string? user = null;
+
+    private long lastCheck = DateTime.Now.ToFileTimeUtc() / 10000;
 
     protected override void OnInitialized()
     {
-        Ticker();
         base.OnInitialized();
+        CheckNewMessages();
     }
 
     protected override async Task OnInitializedAsync()
     {
-        await Task.Delay(1_000);
-        messages = (await MessageLoader.getMessages()).ToList();
-        Console.WriteLine("loaded");
+        messages = (await MessageService.GetMessages()).ToList();
+        this.sort();
         loading = false;
     }
 
-    async void Ticker()
+    async void CheckNewMessages()
     {
         while (true)
         {
             if (loading)
             {
-                await Task.Delay(500);
+                await Task.Delay(200);
                 continue;
             }
-            await Task.Delay(2000);
-            Console.WriteLine("added");
-            Message[] n = (await MessageLoader.getNewMessages());
-            messages.Insert(0, new Message("efef", "qwf", "qwf"));
+            await Task.Delay(500);
+
+
+            Console.WriteLine("CHECKING NEW MESSAGES");
+            long newCheck = DateTime.Now.ToFileTimeUtc() / 10000;
+            Console.WriteLine(lastCheck);
+            Console.WriteLine(newCheck);
+            List<Message> n = (await MessageService.getNewMessages(lastCheck)).ToList();
+            lastCheck = newCheck;
+            if (n.Count() != 0)
+            {
+                Console.WriteLine("NEW MESSAGES RECEIVED");
+                foreach (Message message in n)
+                    Console.WriteLine(message);
+                messages.AddRange(n);
+                this.sort();
+                StateHasChanged();
+            }
+        }
+    }
+
+    private void sort()
+    {
+        messages = messages
+        .GroupBy(x => x.id)
+        .Select(x => x.First())
+        .OrderByDescending(o => o.date)
+        .ToList();
+    }
+
+    private async void send()
+    {
+        if (user != null)
+        {
+            await MessageService.CreateMessage(message);
+            messages = (await MessageService.GetMessages()).ToList();
+            this.sort();
+            message = "";
             StateHasChanged();
         }
+    }
+
+    private void join()
+    {
+        user = username;
     }
 }

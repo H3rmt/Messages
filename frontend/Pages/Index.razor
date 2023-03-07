@@ -2,14 +2,14 @@
 
 <PageTitle>Index</PageTitle>
 
-<div id="main" class="grid w-full h-full gap-3">
+<div id="index-main" class="grid w-full h-full gap-3">
     <div id="title" class="pl-2">
         <h1 class="text-4xl font-bold">@name</h1>
     </div>
     <div id="account" class="flex items-center gap-3">
         <input class="border-2 border-black bg-transparent rounded-lg w-full py-2 px-3 bg" id="username" type="text"
-            placeholder="Username">
-        <button class="border-2 border-black bg-transparent rounded-lg py-1 px-2 bg-green-800">Join</button>
+            placeholder="Username" @bind="username">
+        <button class="border-2 border-black rounded-lg py-1 px-2 bg-green-800" @onclick="join">Join</button>
     </div>
     <div id="users" class="flex gap-2 border-black border-2 rounded-xl p-2 overflow-auto">
         @foreach (var item in users)
@@ -29,11 +29,15 @@
             @foreach (var message in messages)
             {
                 <div class="border-2 rounded-xl border-black bg-transparent p-2 break-words">
-                    <div class="text-xs pb-1">
-                        @message.from
-                        @message.time
+                    <div class="text-xs pb-1 flex flex-row justify-between">
+                        <p>
+                        @message.author
+                        </p>
+                        <p>
+                        @message.date
+                        </p>
                     </div>
-                    @message.message
+                    @message.text
                 </div>
             }
         }
@@ -41,8 +45,8 @@
     <div id="input" class="border-black border-2 rounded-xl p-2 flex items-center gap-3">
         <div class="grow-wrap overflow-auto border-2 border-black rounded-lg w-full p-2 max-h-60">
             <textarea class="bg-transparent" rows="1" wrap="hard" id="send"
-                onInput="this.parentNode.dataset.replicatedValue = this.value"></textarea>
+                onInput="this.parentNode.dataset.replicatedValue = this.value" @bind="message"></textarea>
         </div>
-        <button class="border-2 border-black bg-transparent rounded-lg py-1 px-3">Send</button>
+        <button class="border-2 border-black bg-green-800 rounded-lg py-1 px-3" @onclick="send">Send</button>
     </div>
 </div>

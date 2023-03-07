@@ -7,13 +7,13 @@
 
     #sidebar {
         width: 100vw;
-        height: 3rem;
+        /* height: 4rem; */
         position: sticky;
         bottom: 0;
     }
 
     #main {
-        height: 100%;
+        height: calc(100% - 4rem);
     }
 }
 
