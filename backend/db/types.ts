@@ -12,8 +12,11 @@ type Author = {
     name: string
 }
 
+type CreateAuthor = Omit<Author, "id">
+
 export type {
     Message,
     CreateMessage,
-    Author
+    Author,
+    CreateAuthor
 }

@@ -13,11 +13,11 @@ public class MessageService
         this.httpClient = httpClient;
     }
 
-    public async Task CreateMessage(string message)
+    public async Task CreateMessage(string message, Author author)
     {
         try
         {
-            var httpResponse = await httpClient.PostAsJsonAsync<CreateMessage>("messages/new", new CreateMessage { text = message, author = "a-eudwaf", date = DateTime.Now.ToFileTimeUtc() / 10000 });
+            var httpResponse = await httpClient.PostAsJsonAsync<CreateMessage>("messages/new", new CreateMessage { text = message, author = author.id, date = DateTime.Now.ToFileTimeUtc() / 10000 });
             if (!httpResponse.IsSuccessStatusCode)
             {
                 Console.WriteLine($"There was an error! {httpResponse.ReasonPhrase}");

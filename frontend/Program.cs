@@ -11,6 +11,8 @@ builder.Services.AddSingleton(sp => new HttpClient
 {
     BaseAddress = new Uri("http://localhost:4000")
 });
+
 builder.Services.AddSingleton<MessageService>();
+builder.Services.AddSingleton<AuthorService>();
 
 await builder.Build().RunAsync();

@@ -10,11 +10,11 @@ export default async ({ request, response }: { request: Request, response: Respo
     return;
   }
 
-  const message: CreateMessage = await request.body({ type: "json" }).value;
+  const createMessage: CreateMessage = await request.body({ type: "json" }).value;
 
   // TODO check author
 
-  const id = await createM(message);
+  const message = await createM(createMessage);
 
-  response.body = { msg: "Message created", id };
+  response.body = { msg: "Message created", data: message };
 };

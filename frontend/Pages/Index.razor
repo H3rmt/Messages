@@ -11,12 +11,28 @@
             placeholder="Username" @bind="username">
         <button class="border-2 border-black rounded-lg py-1 px-2 bg-green-800" @onclick="join">Join</button>
     </div>
-    <div id="users" class="flex gap-2 border-black border-2 rounded-xl p-2 overflow-auto">
-        @foreach (var item in users)
+    <div id="authors" class="flex gap-2 border-black border-2 rounded-xl p-2 overflow-auto">
+        @if (loading)
         {
-            <div class="border-2 rounded-xl border-black bg-transparent p-2">
-                @item
-            </div>
+            <h4>Loading...</h4>
+        }
+        else
+        {
+            @foreach (var a in authors)
+            {
+                @if (a == author)
+                {
+                    <div class="border-2 rounded-xl border-white bg-transparent p-2">
+                        @a.name
+                    </div>
+                }
+                else
+                {
+                    <div class="border-2 rounded-xl border-black bg-transparent p-2">
+                        @a.name
+                    </div>
+                }
+            }
         }
     </div>
     <div id="chat" class="border-black border-2 rounded-xl p-2 overflow-auto gap-3 flex flex-col-reverse">
@@ -28,25 +44,47 @@
         {
             @foreach (var message in messages)
             {
-                <div class="border-2 rounded-xl border-black bg-transparent p-2 break-words">
-                    <div class="text-xs pb-1 flex flex-row justify-between">
-                        <p>
-                        @message.author
-                        </p>
-                        <p>
-                        @message.date
-                        </p>
+                @if (author is not null && message.author == author?.id)
+                {
+                    <div class="border-2 rounded-xl border-white bg-transparent p-2 break-words">
+                        <div class="text-xs pb-1 flex flex-row justify-between">
+                            <p>
+                            @{ var name = authors.Find(a => a.id == message.author).name ?? "--not-found--"; }
+                            @name
+                            </p>
+                            <p>
+                            @message.date
+                            </p>
+                        </div>
+                        @message.text
                     </div>
-                    @message.text
-                </div>
+                }
+                else
+                {
+                    <div class="border-2 rounded-xl border-black bg-transparent p-2 break-words">
+                        <div class="text-xs pb-1 flex flex-row justify-between">
+                            <p>
+                            @{ var name = authors.Find(a => a.id == message.author).name ?? "--not-found--"; }
+                            @name
+                            </p>
+                            <p>
+                            @message.date
+                            </p>
+                        </div>
+                        @message.text
+                    </div>
+                }
             }
         }
     </div>
-    <div id="input" class="border-black border-2 rounded-xl p-2 flex items-center gap-3">
-        <div class="grow-wrap overflow-auto border-2 border-black rounded-lg w-full p-2 max-h-60">
-            <textarea class="bg-transparent" rows="1" wrap="hard" id="send"
-                onInput="this.parentNode.dataset.replicatedValue = this.value" @bind="message"></textarea>
+    @if (author is not null) {
+        <div id="input" class="border-black border-2 rounded-xl p-2 flex items-center gap-3">
+        
+            <div class="grow-wrap overflow-auto border-2 border-black rounded-lg w-full p-2 max-h-60">
+                <textarea class="bg-transparent" rows="1" wrap="hard" id="send"
+                    onInput="this.parentNode.dataset.replicatedValue = this.value" @bind="message"></textarea>
+            </div>
+            <button class="border-2 border-black bg-green-800 rounded-lg py-1 px-3" @onclick="send">Send</button>
         </div>
-        <button class="border-2 border-black bg-green-800 rounded-lg py-1 px-3" @onclick="send">Send</button>
-    </div>
+    }
 </div>
