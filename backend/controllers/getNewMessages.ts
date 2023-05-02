@@ -8,3 +8,9 @@ export default async (ctx: Context) => {
   // console.debug("getNewMessages")
   ctx.response.body = await selectAfter(date);
 };
+
+// client
+// 13327463107680
+
+// db
+// 1682989358674

@@ -14,5 +14,6 @@ builder.Services.AddSingleton(sp => new HttpClient
 
 builder.Services.AddSingleton<MessageService>();
 builder.Services.AddSingleton<AuthorService>();
+builder.Services.AddSingleton<OnlineService>();
 
 await builder.Build().RunAsync();

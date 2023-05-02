@@ -24,39 +24,7 @@ else
 
 
 @code {
-    protected override void OnInitialized()
-    {
-        Ticker();
-        base.OnInitialized();
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        loading = true;
-        await Task.Delay(1_000);
-        @* messages = (await MessageLoader.getMessages()).ToList(); *@
-        loading = false;
-    }
-
     private List<Message> messages = new List<Message>();
 
     private bool loading = true;
-
-    async void Ticker()
-    {
-        while (true)
-        {
-            if (loading)
-            {
-                await Task.Delay(500);
-                continue;
-            }
-            await Task.Delay(2000);
-            Console.WriteLine("added");
-            // Message[] n = (await MessageLoader.getNewMessages());
-            @* messages.Insert(0, new Message("m-efef", "a-qwf", "qwf", "today")); *@
-            StateHasChanged(); // refresh everything
-        }
-    }
-
 }

@@ -4,6 +4,7 @@ import createMessage from "./controllers/createMessage.ts";
 import getNewMessages from "./controllers/getNewMessages.ts";
 import getAuthors from "./controllers/getAuthors.ts";
 import createAuthor from "./controllers/createAuthor.ts";
+import authorOnline from "./controllers/authorOnline.ts";
 
 const router = new Router();
 
@@ -13,5 +14,6 @@ router
   .post("/messages/new", createMessage)
   .get("/authors/all", getAuthors)
   .post("/authors/new", createAuthor)
+  .post("/authors/online", authorOnline)
 
 export default router;

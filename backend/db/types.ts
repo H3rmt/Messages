@@ -5,18 +5,22 @@ type Message = {
     date: number
 }
 
-type CreateMessage = Omit<Message, "id">
+type CreateMessage = Omit<Message, "id" | "date">
 
 type Author = {
     id: string
     name: string
+    online: boolean
 }
 
-type CreateAuthor = Omit<Author, "id">
+type DBAuthor = Omit<Author, "online">
+
+type CreateAuthor = Omit<Author, "id" | "online">
 
 export type {
     Message,
     CreateMessage,
     Author,
-    CreateAuthor
+    CreateAuthor,
+    DBAuthor
 }

@@ -11,6 +11,9 @@ public partial class Index : ComponentBase
     [Inject]
     BlazorApp.Services.AuthorService AuthorService { get; set; }
 
+    [Inject]
+    BlazorApp.Services.OnlineService OnlineService { get; set; }
+
     private string name = "Chat";
 
     private List<Message> messages = new List<Message>();
@@ -32,6 +35,7 @@ public partial class Index : ComponentBase
         base.OnInitialized();
         CheckNewMessages();
         CheckAuthors();
+        SetOnline();
     }
 
     protected override async Task OnInitializedAsync()
@@ -52,10 +56,27 @@ public partial class Index : ComponentBase
                 await Task.Delay(200);
                 continue;
             }
-            await Task.Delay(2000);
 
             authors = (await AuthorService.GetAuthors()).ToList();
             StateHasChanged();
+
+            await Task.Delay(2000);
+        }
+    }
+
+    async void SetOnline()
+    {
+        while (true)
+        {
+            if (loading || author is null)
+            {
+                await Task.Delay(1000);
+                continue;
+            }
+
+            await OnlineService.ReportOnline(author?.id);
+
+            await Task.Delay(4000);
         }
     }
 
@@ -68,9 +89,8 @@ public partial class Index : ComponentBase
                 await Task.Delay(200);
                 continue;
             }
-            await Task.Delay(500);
 
-            long newCheck = DateTime.Now.ToFileTimeUtc() / 10000;
+            long newCheck = DateTimeOffset.Now.ToUnixTimeMilliseconds();
             List<Message> n = (await MessageService.getNewMessages(lastCheck)).ToList();
             lastCheck = newCheck;
             if (n.Count() != 0)
@@ -79,6 +99,8 @@ public partial class Index : ComponentBase
                 this.sort();
                 StateHasChanged();
             }
+
+            await Task.Delay(500);
         }
     }
 
